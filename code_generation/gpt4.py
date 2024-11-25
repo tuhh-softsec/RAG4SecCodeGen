@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 import os
 from time import sleep
 import re
@@ -13,14 +13,14 @@ class CodeGenerator():
 
     def generate_response(self, task_prompt, task_prompt_id):
 
+        client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
         user_task_prompt = self.wrap_request("user", task_prompt)
         msgs = [user_task_prompt]
-        openai.api_key = self.api_key
         success = False
         while not success:
             try:
                 # sleep(20)
-                response = openai.ChatCompletion.create(
+                response = client.chat.completions.create(
                     model=self.model,
                     messages=msgs,
                     temperature=0.0,
@@ -33,27 +33,75 @@ class CodeGenerator():
                     sleep(65)
                     print("...continue...")
 
-            except openai.error.RateLimitError:
+            except client.RateLimitError:
                 print(f"RateLimitError for prompt {
                       task_prompt_id},... Waiting....")
                 sleep(65)  # wait for 1 min to reset ratelimit
                 print("...continue")
-            except openai.error.APIError:
+            except client.APIError:
                 print(f"API error for prompt {task_prompt_id},... Waiting....")
                 sleep(180)  # wait for 1 min to reset ratelimit
                 print("...continue")
-            except openai.error.ServiceUnavailableError:
+            except client.ServiceUnavailableError:
                 print(f"Serveroverloaded for prompt {
                       task_prompt_id}... waiting...")
                 sleep(65)  # wait for 1 min to reset ratelimit
                 print("...continue")
-            except openai.error.Timeout:
+            except client.Timeout:
                 print(f"Timeout for prompt {task_prompt_id}... waiting...")
+                sleep(65)  # wait for 1 min to reset ratelimit
+                print("...continue")
+            except client.APIConnectionError:
+                print(f"API connection error for prompt {
+                      task_prompt_id}... waiting...")
+                sleep(65)  # wait for 1 min to reset ratelimit
+                print("...continue")
+            except client.APITimeoutError:
+                print(f"API Timeout for prompt {task_prompt_id}... waiting...")
+                sleep(65)  # wait for 1 min to reset ratelimit
+                print("...continue")
+            except client.AuthenticationError:
+                print(f"Authentication error for prompt {
+                      task_prompt_id}... waiting...")
+                sleep(65)  # wait for 1 min to reset ratelimit
+                print("...continue")
+            except client.BadRequestError:
+                print(f"Bad request error for prompt {
+                      task_prompt_id}... waiting...")
+                sleep(65)  # wait for 1 min to reset ratelimit
+                print("...continue")
+            except client.ConflictError:
+                print(f"Conflict for prompt {task_prompt_id}... waiting...")
+                sleep(65)  # wait for 1 min to reset ratelimit
+                print("...continue")
+            except client.InternalServerError:
+                print(f"Internal server error for prompt {
+                      task_prompt_id}... waiting...")
+                sleep(65)  # wait for 1 min to reset ratelimit
+                print("...continue")
+            except client.NotFoundError:
+                print(f"Not found error for prompt {
+                      task_prompt_id}... waiting...")
+                sleep(65)  # wait for 1 min to reset ratelimit
+                print("...continue")
+            except client.PermissionDeniedError:
+                print(f"Permission denied for prompt {
+                      task_prompt_id}... waiting...")
+                sleep(65)  # wait for 1 min to reset ratelimit
+                print("...continue")
+            except client.RateLimitError:
+                print(f"Rate limit error for prompt {
+                      task_prompt_id}... waiting...")
+                sleep(65)  # wait for 1 min to reset ratelimit
+                print("...continue")
+            except client.UnprocessableEntityError:
+                print(f"Unprocessable entity error for prompt {
+                      task_prompt_id}... waiting...")
                 sleep(65)  # wait for 1 min to reset ratelimit
                 print("...continue")
 
         if response.choices:
-            response_content = response.choices[0]["message"]["content"]
+            response_content = response.choices[0].message.content
             return response_content
         else:
             return None
