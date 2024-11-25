@@ -2,6 +2,7 @@ from openai import OpenAI
 import os
 from time import sleep
 import re
+from config import config
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -112,7 +113,7 @@ class CodeGenerator():
     def write_code_to_file(self, prompt_task_id, task_prompt, code, file_prefix):
         """ Writes a given code snippet and its associated prompt to a Python file. """
         print(f"Writing code for {prompt_task_id} to file")
-        output_dir = "Priming-output/gpt4"
+        output_dir = config.code_output_dir
         # Ensure the output directory exists
         os.makedirs(output_dir, exist_ok=True)
         code_blocks = []

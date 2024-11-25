@@ -1,0 +1,16 @@
+paths:
+  guidelinescsv_file: "dataset/secure_coding_guidelines.csv"
+  persist_dir: "chroma_db"
+  code_output_dir: "output/rag/gpt4"
+  prompt_dataset_file: "dataset/LLMSecEval_Py.txt"
+
+models:
+  embedding_model: "text-embedding-3-small"
+  completion_model: "gpt-4-1106-preview"
+
+database:
+  chunk_size: 1000
+  chunk_overlap: 200 
+
+misc:
+  prompt_id_prefix: "rag_"
