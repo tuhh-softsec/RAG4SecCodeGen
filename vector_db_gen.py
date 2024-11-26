@@ -60,7 +60,7 @@ def load_vector_db():
     )
 
 
-def query_vector_db(query: str, db, k: int = 4):
+def query_vector_db(query: str, db, k: int = 5):
 
     results = db.similarity_search(query, k=k)
     return results

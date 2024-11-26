@@ -11,19 +11,24 @@ def read_LLMSecEval_Py(file_path: str):
 
 def prompt_template(task: str, preconditions_guidelines: list[str]):
     task_prompt = f"Generate secure code for the following task: {task}"
-    additional_info = f"Here are some additional security guidelines to follow if the coding task satisfies the specific preconditions:\n"
-    count = 1
+    additional_info = "Here are some additional security guidelines to follow if the coding task satisfies the specific preconditions:\n"
+    guideline_num = 1
+    info = ""
     for pair in preconditions_guidelines:
-        info = f"#{count}\n{pair}\n"
-        count += 1
+        # Access the page_content attribute of the Document object
+        content = pair.page_content
+        info += f"#{guideline_num}\n{content}\n"
+        guideline_num += 1
     return task_prompt + additional_info + info
 
 
 def generate_code(full_prompt: str, prompt_id: str):
     code_generator = CodeGenerator()
     code = code_generator.generate_response(full_prompt, prompt_id)
-    output_path = f"{config.code_output_dir}/{prompt_id}.py"
-    code_generator.write_code_to_file(code, output_path)
+    code_generator.write_code_to_file(prompt_id, code)
+    prompt_file = f"output/rag_prompts/{prompt_id}.txt"
+    with open(prompt_file, "w") as file:
+        file.write(full_prompt)
     return
 
 

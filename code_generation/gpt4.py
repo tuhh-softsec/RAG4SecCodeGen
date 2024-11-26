@@ -8,8 +8,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
 class CodeGenerator():
-    def __init__(self, api_key, model="gpt-4-1106-preview") -> None:
-        self.api_key = api_key
+    def __init__(self, model="gpt-4-1106-preview") -> None:
         self.model = model
 
     def generate_response(self, task_prompt, task_prompt_id):
@@ -110,7 +109,7 @@ class CodeGenerator():
     def wrap_request(self, type, msg):
         return {"role": type, "content": msg}
 
-    def write_code_to_file(self, prompt_task_id, task_prompt, code, file_prefix):
+    def write_code_to_file(self, prompt_task_id, code):
         """ Writes a given code snippet and its associated prompt to a Python file. """
         print(f"Writing code for {prompt_task_id} to file")
         output_dir = config.code_output_dir
@@ -122,7 +121,7 @@ class CodeGenerator():
         if all(not block.strip() for block in code_blocks):
             code_blocks.append(code)
 
-        filename = f"{file_prefix}_{prompt_task_id}"
+        filename = f"{prompt_task_id}"
         filepath = os.path.join(output_dir, f"{filename}.py")
         # filepath = f"{prompt_task_id}.py"
         print(filepath)
