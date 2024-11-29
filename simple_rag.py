@@ -10,7 +10,7 @@ def read_LLMSecEval_Py(file_path: str):
 
 
 def prompt_template(task: str, preconditions_guidelines: list[str]):
-    task_prompt = f"Generate secure code for the following task: {task}"
+    task_prompt = f"Generate secure Python code for the following task: {task}"
     additional_info = "Here are some additional security guidelines to follow if the coding task satisfies the specific preconditions:\n"
     guideline_num = 1
     info = ""
@@ -44,6 +44,8 @@ if __name__ == "__main__":
 
     count = 1
     for task in coding_tasks:
+
+        print(f"Generating code for task {count}")
         prompt_id = f"{config.prompt_id_prefix}{count}"
         preconditions_guidelines = query_vector_db(task, db)
         full_prompt = prompt_template(task, preconditions_guidelines)

@@ -3,6 +3,12 @@ import os
 from time import sleep
 import re
 from config import config
+from openai import (
+    APIError,
+    RateLimitError,
+    APIConnectionError,
+    InternalServerError
+)
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -33,72 +39,72 @@ class CodeGenerator():
                     sleep(65)
                     print("...continue...")
 
-            except client.RateLimitError:
+            except RateLimitError:
                 print(f"RateLimitError for prompt {
                       task_prompt_id},... Waiting....")
                 sleep(65)  # wait for 1 min to reset ratelimit
                 print("...continue")
-            except client.APIError:
+            except APIError:
                 print(f"API error for prompt {task_prompt_id},... Waiting....")
                 sleep(180)  # wait for 1 min to reset ratelimit
                 print("...continue")
-            except client.ServiceUnavailableError:
+            except InternalServerError:
                 print(f"Serveroverloaded for prompt {
                       task_prompt_id}... waiting...")
                 sleep(65)  # wait for 1 min to reset ratelimit
                 print("...continue")
-            except client.Timeout:
-                print(f"Timeout for prompt {task_prompt_id}... waiting...")
-                sleep(65)  # wait for 1 min to reset ratelimit
-                print("...continue")
-            except client.APIConnectionError:
+            # except client.Timeout:
+            #     print(f"Timeout for prompt {task_prompt_id}... waiting...")
+            #     sleep(65)  # wait for 1 min to reset ratelimit
+            #     print("...continue")
+            except APIConnectionError:
                 print(f"API connection error for prompt {
                       task_prompt_id}... waiting...")
                 sleep(65)  # wait for 1 min to reset ratelimit
                 print("...continue")
-            except client.APITimeoutError:
-                print(f"API Timeout for prompt {task_prompt_id}... waiting...")
-                sleep(65)  # wait for 1 min to reset ratelimit
-                print("...continue")
-            except client.AuthenticationError:
-                print(f"Authentication error for prompt {
-                      task_prompt_id}... waiting...")
-                sleep(65)  # wait for 1 min to reset ratelimit
-                print("...continue")
-            except client.BadRequestError:
-                print(f"Bad request error for prompt {
-                      task_prompt_id}... waiting...")
-                sleep(65)  # wait for 1 min to reset ratelimit
-                print("...continue")
-            except client.ConflictError:
-                print(f"Conflict for prompt {task_prompt_id}... waiting...")
-                sleep(65)  # wait for 1 min to reset ratelimit
-                print("...continue")
-            except client.InternalServerError:
-                print(f"Internal server error for prompt {
-                      task_prompt_id}... waiting...")
-                sleep(65)  # wait for 1 min to reset ratelimit
-                print("...continue")
-            except client.NotFoundError:
-                print(f"Not found error for prompt {
-                      task_prompt_id}... waiting...")
-                sleep(65)  # wait for 1 min to reset ratelimit
-                print("...continue")
-            except client.PermissionDeniedError:
-                print(f"Permission denied for prompt {
-                      task_prompt_id}... waiting...")
-                sleep(65)  # wait for 1 min to reset ratelimit
-                print("...continue")
-            except client.RateLimitError:
-                print(f"Rate limit error for prompt {
-                      task_prompt_id}... waiting...")
-                sleep(65)  # wait for 1 min to reset ratelimit
-                print("...continue")
-            except client.UnprocessableEntityError:
-                print(f"Unprocessable entity error for prompt {
-                      task_prompt_id}... waiting...")
-                sleep(65)  # wait for 1 min to reset ratelimit
-                print("...continue")
+            # except client.APITimeoutError:
+            #     print(f"API Timeout for prompt {task_prompt_id}... waiting...")
+            #     sleep(65)  # wait for 1 min to reset ratelimit
+            #     print("...continue")
+            # except client.AuthenticationError:
+            #     print(f"Authentication error for prompt {
+            #           task_prompt_id}... waiting...")
+            #     sleep(65)  # wait for 1 min to reset ratelimit
+            #     print("...continue")
+            # except client.BadRequestError:
+            #     print(f"Bad request error for prompt {
+            #           task_prompt_id}... waiting...")
+            #     sleep(65)  # wait for 1 min to reset ratelimit
+            #     print("...continue")
+            # except client.ConflictError:
+            #     print(f"Conflict for prompt {task_prompt_id}... waiting...")
+            #     sleep(65)  # wait for 1 min to reset ratelimit
+            #     print("...continue")
+            # except client.InternalServerError:
+            #     print(f"Internal server error for prompt {
+            #           task_prompt_id}... waiting...")
+            #     sleep(65)  # wait for 1 min to reset ratelimit
+            #     print("...continue")
+            # except client.NotFoundError:
+            #     print(f"Not found error for prompt {
+            #           task_prompt_id}... waiting...")
+            #     sleep(65)  # wait for 1 min to reset ratelimit
+            #     print("...continue")
+            # except client.PermissionDeniedError:
+            #     print(f"Permission denied for prompt {
+            #           task_prompt_id}... waiting...")
+            #     sleep(65)  # wait for 1 min to reset ratelimit
+            #     print("...continue")
+            # except client.RateLimitError:
+            #     print(f"Rate limit error for prompt {
+            #           task_prompt_id}... waiting...")
+            #     sleep(65)  # wait for 1 min to reset ratelimit
+            #     print("...continue")
+            # except client.UnprocessableEntityError:
+            #     print(f"Unprocessable entity error for prompt {
+            #           task_prompt_id}... waiting...")
+            #     sleep(65)  # wait for 1 min to reset ratelimit
+            #     print("...continue")
 
         if response.choices:
             response_content = response.choices[0].message.content

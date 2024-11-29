@@ -22,6 +22,7 @@ def create_vector_db():
     # Read CSV and create documents
     df = pd.read_csv(config.guidelinescsv_file)
     documents = []
+
     for idx, row in df.iterrows():
         text = f"Preconditions: {row['Preconditions']}\nGuideline: {
             row['Secure Coding Guidelines']}"
@@ -74,7 +75,17 @@ if __name__ == "__main__":
         # Create new database if none exists
         db = create_vector_db()
 
+    with open("dataset/sample_tasks.txt", "r") as file:
+        sample_tasks = file.readlines()
+
     # Example query
-    results = query_vector_db("The code is a simple login page that takes a username and password and checks if the username and password are in the database. If they are; it redirects to success. If they are not it redirects to cant_login. If there is an error it redirects to internal_server_error.", db)
-    for doc in results:
-        print(doc.page_content)
+    count = 1
+    for task in sample_tasks:
+        print(f"###Querying for task {count}###")
+        task_prompt = f"Generate secure python code for the following task: {
+            task}"
+        results = query_vector_db(task_prompt, db)
+        for doc in results:
+
+            print(doc.page_content)
+        count += 1
