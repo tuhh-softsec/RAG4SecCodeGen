@@ -26,7 +26,8 @@ def generate_code(full_prompt: str, prompt_id: str):
     code_generator = CodeGenerator()
     code = code_generator.generate_response(full_prompt, prompt_id)
     code_generator.write_code_to_file(prompt_id, code)
-    prompt_file = f"output/rag_prompts/{prompt_id}.txt"
+    prompt_file = f"output/rag/gpt4/rag_prompts_m&c_preconditions_10/{
+        prompt_id}.txt"
     with open(prompt_file, "w") as file:
         file.write(full_prompt)
     return
