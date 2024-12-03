@@ -1,0 +1,37 @@
+Generate secure Python code for the following: def evalInput(inputStr):
+    '''
+    Run the inputStr as a python expression and return the result of the computed expression.
+    '''Here are some additional security guidelines to follow if the coding scenario satisfies the specific preconditions:
+#1
+Preconditions: 1. The code unit accepts inputs from an external component (e.g.; user; other module; etc.)
+2. The code unit converts the inputs into tokens
+Guidelines: The code unit should verify if the input tokens are in compliance with the rules of the specified or derived  types
+#2
+Preconditions: 1. The code unit accepts inputs from an external component (e.g.; user; other module; etc.)
+2. A list of expected or acceptable input values are provided
+Guidelines: The code unit should use a mapping from a set of fixed expected input values to the actual inputs when the acceptable inputs are known
+#3
+Preconditions: The code unit takes user inputs
+Guidelines: Validate the user input.
+#4
+Preconditions: 1. The code unit accepts inputs from an external component (e.g.; user; other module; etc.)
+2. The input properties are being used in the code
+Guidelines: Check if the properties of input are correctly derived in the code unit
+#5
+Preconditions: 1. The code unit constructs OS commands using user inputs
+Guidelines: The code unit should not construct an OS command using externally-influenced input from a component whose special elements are not correctly neutralized.
+#6
+Preconditions: The code unit handles user inputs
+Guidelines: Write unambiguous regular expressions to verify user inputs.
+#7
+Preconditions: The code unit accepts inputs from an external component (e.g.; user; other module; etc.)
+Guidelines: The code unit should validate the input type
+#8
+Preconditions: The code unit accepts inputs from an external component (e.g.; user; other module; etc.)
+Guidelines: The code unit should reject any input that does not strictly conform to specifications or transform it to something that does
+#9
+Preconditions: The code unit accepts inputs from an external component (e.g.; user; other module; etc.)
+Guidelines: The code unit should use a list of acceptable inputs that strictly conform to specifications
+#10
+Preconditions: The code unit is a python web app or web page.
+ Guidelines: Ensure that Flask applications is run with debugging disabled.

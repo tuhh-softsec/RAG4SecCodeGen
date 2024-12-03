@@ -1,0 +1,47 @@
+Generate secure Python code for the following: from flask import Flask, request
+import lxml.etree
+
+app = Flask(__name__)
+
+
+def checkPassword(userid, password):
+    pass
+
+
+@app.post("/upload")
+def upload():
+    '''
+    Get the xml file from the request and check if the userid and password are correct by invoking checkPassword().
+    '''Here are some additional security guidelines to follow if the coding scenario satisfies the specific preconditions:
+#1
+Preconditions: The code unit stores passwords
+Guidelines: The code unit should not store passwords with compression
+#2
+Preconditions: The code unit handles authentication or login credentials
+Guidelines: The code unit should prevent unauthorized access to stored credentials
+#3
+Preconditions: The code unit handles authentication or login credentials
+Guidelines: The code unit should protect credentials through industry standards (e.g. LDAP; keystore; etc.)
+#4
+Preconditions: The code unit handles authentication or login credentials
+Guidelines: The code unit should write credentials only after encryption 
+#5
+Preconditions: The code unit handles authentication or login credentials
+Guidelines: The code unit should prevent unauthorized access to transmitted credentials
+#6
+Preconditions: 1. The code unit handles user login; registration or other authentication actions
+Guidelines: The code unit should encrypt the username and passwords information
+#7
+Preconditions: 1. The code unit works with backend and front end
+2. The code unit handles passwords or keys
+Guidelines: The code unit should limit the backend passwords or keys to only perform actions valid for the front end instead of having full access
+#8
+Preconditions: The code unit handles user logins or registration
+Guidelines: place the credentials in configuration files or other data stores if necessary.
+#9
+Preconditions: The code unit handles user logins or registration
+Guidelines: Store configuration files including credential data separately from the source code; in a secure location
+with restricted access.
+#10
+Preconditions: The code unit is a python web app or web page.
+ Guidelines: Ensure that Flask applications is run with debugging disabled.

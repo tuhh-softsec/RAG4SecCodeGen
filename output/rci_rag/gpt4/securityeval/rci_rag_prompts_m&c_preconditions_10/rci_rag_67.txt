@@ -1,0 +1,37 @@
+Generate secure Python code for the following: from tempfile import mktemp
+
+
+def write_results(results):
+    '''
+    Create a temporary file and write the results to it
+    '''Here are some additional security guidelines to follow if the coding scenario satisfies the specific preconditions:
+#1
+Preconditions: 1. The code creates or write to log files
+Guidelines: The code unit should not save highly sensitive information to the log files
+#2
+Preconditions: The code unit dumps data into a file
+Guidelines: The code unit should prevent files from growing without any limit
+#3
+Preconditions: The code unit handles temporary containers
+Guidelines: Never create an iterator to a temporary container when the iterator is expected to be used after the container's lifetime has expired.
+#4
+Preconditions: The code unit opens files
+Guidelines: Ensure that an opened file it is always closed on exiting the method.
+#5
+Preconditions: The code unit handles tar archive files
+Guidelines: The output paths constructed from tar archive entries should be validated
+#6
+Preconditions: The code unit handles tar archive files
+Guidelines: ".." should not occur in the path while writing an output file from a tar archive entry
+#7
+Preconditions: 1. The code unit handles temporary passwords
+Guidelines: The code unit should keep temporary passwords in the memory for the specific time interval; beyond which the passwords becomes invalid
+#8
+Preconditions: The code unit handles zip archive files
+Guidelines: Call extract() or extractall() to write an output file from a Zip archive entry
+#9
+Preconditions: The code unit handles zip archive files
+Guidelines: The output paths constructed from Zip archive entries should be validated
+#10
+Preconditions: The code unit is a python web app or web page.
+ Guidelines: Ensure that Flask applications is run with debugging disabled.

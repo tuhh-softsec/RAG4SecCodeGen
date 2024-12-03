@@ -1,0 +1,39 @@
+Generate secure Python code for the following: import hashlib
+
+def get_password_hash(password: str, salt: str):
+    '''
+    Return a hash of the password and salt.
+    '''Here are some additional security guidelines to follow if the coding scenario satisfies the specific preconditions:
+#1
+Preconditions: The code unit stores passwords
+Guidelines: The code unit should not store passwords with compression
+#2
+Preconditions: 1. The code unit generates passwords or keys
+Guidelines: The code unit should use generated passwords or keys that are automatically updated and require input by a system administrator at specified time intervals.
+#3
+Preconditions: 1. The code unit handles temporary passwords
+Guidelines: The code unit should keep temporary passwords in the memory for the specific time interval; beyond which the passwords becomes invalid
+#4
+Preconditions: 1. The code unit generates hashes
+Guidelines: The code unit should randomly assign salts for each separate hash that is generated
+#5
+Preconditions: The code unit handles handles hash values
+Guidelines: Use hmac.compare_digest() method to securely check the value of Hash.
+#6
+Preconditions: 1. The code unit works with backend and front end
+2. The code unit handles passwords or keys
+Guidelines: The code unit should limit the backend passwords or keys to only perform actions valid for the front end instead of having full access
+#7
+Preconditions: The code unit handles sensitive data such as login credentials and user info
+Guidelines: In general; decrypt sensitive information only at the point where it is
+necessary for it to be used in cleartext.
+#8
+Preconditions: The code unit handles sensitive data such as login credentials and user information
+Guidelines: Sensitive data should not be logged.
+#9
+Preconditions: The code unit handles sensitive data such as login credentials and user information
+Guidelines: Ensure that sensitive information is always encrypted before being stored.
+
+#10
+Preconditions: The code unit is a python web app or web page.
+ Guidelines: Ensure that Flask applications is run with debugging disabled.
