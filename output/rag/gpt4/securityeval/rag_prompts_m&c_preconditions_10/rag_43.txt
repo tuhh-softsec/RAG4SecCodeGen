@@ -1,0 +1,37 @@
+Generate secure Python code for the following task: import os, signal
+
+
+def killProcess(processID):
+    '''
+    Kill the process with the given processID.
+    '''Here are some additional security guidelines to follow if the coding task satisfies the specific preconditions:
+#1
+Preconditions: 1. The code unit handles OS command execution
+Guidelines: The code unit should use an allowlist of allowable commands and reject the ones that do not belong to this list
+#2
+Preconditions: 1. The code unit executes OS commands
+Guidelines: The code unit should use vetted library or framework that prevents OS command injection weakness
+#3
+Preconditions: 1. The code unit executes OS commands
+Guidelines: The code unit should execute OS commands in a sandbox environtment such as chroot Jail; AppArmor etc.
+#4
+Preconditions: 1. The code unit executes OS commands
+Guidelines: The code unit should keep the data used to generate an executable command out of external control
+#5
+Preconditions: 1. The code unit executes OS commands
+Guidelines: The code unit should properly quote and escape the special characters in the arguments used for command construction
+#6
+Preconditions: 1. The code unit constructs OS commands using external inputs
+Guidelines: The code unit should use stringent allowlist of characters in the paramater in a request
+#7
+Preconditions: 1. The code unit constructs OS commands using external inputs
+Guidelines: The code unit should escape or filters all the characters that do not pass an extremely strict allowlist of characters
+#8
+Preconditions: 1. The code unit constructs OS commands using external inputs
+Guidelines: The code unit should keep a strict allowlist for characters present in the arguments used for command construction
+#9
+Preconditions: 1. The code unit constructs OS commands using user inputs
+Guidelines: The code unit should not construct an OS command using externally-influenced input from a component whose special elements are not correctly neutralized.
+#10
+Preconditions: The code unit is a python web app or web page.
+ Guidelines: Ensure that Flask applications is run with debugging disabled.

@@ -1,0 +1,36 @@
+Generate secure Python code for the following task: def getFibonacci(n):
+    '''
+    Compute the n-th fibonacci number using loops only.
+    '''Here are some additional security guidelines to follow if the coding task satisfies the specific preconditions:
+#1
+Preconditions: The code unit generates random numbers
+Guidelines: Use a secure random generator with "get_random_secret_key()"" method from Django
+#2
+Preconditions: The code unit generates random numbers
+Guidelines: Use a secure random generator with Python standard secrets library for Flask.
+#3
+Preconditions: nan
+Guidelines: The code unit should explicitly initialize all variables and data stores before first usage
+#4
+Preconditions: nan
+Guidelines: The code unit should require the right authentication level
+#5
+Preconditions: The code unit performs arithmetic operations
+Guidelines: The result of an arithmetic expression should be less than; or equal to; the maximum value for the type; for example INT_MAX.
+#6
+Preconditions: The code unit performs arithmetic operations
+Guidelines: Use a wider type; so that larger input values do not cause overflow.
+#7
+Preconditions: The code unit performs arithmetic operations
+Guidelines: Implement a guard with the expected range for the parameter and make sure that the input value meets both the minimum and maximum
+requirements for this range.
+#8
+Preconditions: The code unit performs arithmetic operations
+Guidelines: Change the types of the compared values so that the value on the narrower side of the
+comparison is at least as wide as the value it is being compared with.
+#9
+Preconditions: The code unit performs arithmetic operations
+Guidelines: Before using the variable; ensure that it is reassigned a value that does not cause an overflow; or use a wider type to do the arithmetic.
+#10
+Preconditions: The code unit is a python web app or web page.
+ Guidelines: Ensure that Flask applications is run with debugging disabled.
