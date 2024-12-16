@@ -8,14 +8,14 @@ from google.api_core.exceptions import (
     ResourceExhausted,
     ServiceUnavailable,
     InvalidArgument,
-    InternalServerError
+    InternalServerError,
 )
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
 class CodeGenerator():
-    def __init__(self, model="gemini-pro") -> None:
+    def __init__(self, model="gemini-1.5-flash") -> None:
         self.model = model
         genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
 
@@ -30,9 +30,22 @@ class CodeGenerator():
                     generation_config={
                         "temperature": 0.0,
                         "top_p": 0.1
+                    },
+                    safety_settings={
+                        "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_NONE",
+                        "HARM_CATEGORY_HATE_SPEECH": "BLOCK_NONE",
+                        "HARM_CATEGORY_HARASSMENT": "BLOCK_NONE",
+                        "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_NONE"
                     }
                 )
-                success = True
+
+                if response.parts:
+                    success = True
+                else:
+                    print(f"Empty response for prompt {
+                          task_prompt_id}... Retrying...")
+                    sleep(5)
+                    continue
 
             except ResourceExhausted:
                 print(f"Rate limit exceeded for prompt {
@@ -54,16 +67,21 @@ class CodeGenerator():
                       task_prompt_id}... waiting...")
                 sleep(65)
                 print("...continue")
+            except ValueError:
+                print(f"Invalid content for prompt {
+                      task_prompt_id}... waiting...")
+                sleep(35)
+                return "None"
             except Exception as e:
                 print(f"Unexpected error for prompt {
                       task_prompt_id}: {str(e)}... waiting...")
                 sleep(65)
                 print("...continue")
 
-        if response:
+        if response and response.parts:
             return response.text
         else:
-            return None
+            return "None"
 
     def wrap_request(self, type, msg):
         # Gemini doesn't use role-based messaging like GPT-4, but keeping method for compatibility
