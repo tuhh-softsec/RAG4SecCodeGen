@@ -1,6 +1,6 @@
 paths:
   guidelinescsv_file: "dataset/secure_coding_guidelines_M&C.csv"
-  persist_dir: "chroma_db"
+  persist_dir: "chromaDB"
   code_output_dir: "output/rci_rag/gemini/sallms/code"
   prompt_dataset_file: "dataset/sallms.jsonl"
   prompt_file_dir: "output/rci_rag/gemini/sallms/prompts"
