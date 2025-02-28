@@ -5,6 +5,7 @@ from langchain.schema import Document
 from config import config
 import pandas as pd
 import os
+import json
 
 
 def create_vector_db():
@@ -24,13 +25,15 @@ def create_vector_db():
     documents = []
 
     for idx, row in df.iterrows():
-        text = f"Preconditions: {row['Preconditions']}\nGuideline: {
-            row['Secure Coding Guidelines']}"
+        # text = f"Guidelines: {row['Secure Coding Guidelines']}"
+        text = f"Preconditions: {row['Preconditions']}"
+        #    row['Secure Coding Guidelines']}"
         doc = Document(
             page_content=text,
             metadata={
                 "id": row["ID"],
-                "cwe_id": row["ID.1"]
+                "guidelines": row["Secure Coding Guidelines"],
+                "cwe_id": row["CWE-ID"]
             }
         )
         documents.append(doc)
@@ -61,31 +64,42 @@ def load_vector_db():
     )
 
 
-def query_vector_db(query: str, db, k: int = 5):
+def query_vector_db(query: str, db, k: int = 10):
 
     results = db.similarity_search(query, k=k)
+    for doc in results:
+        # print(doc)
+        doc.page_content += f"\nGuidelines: {doc.metadata["guidelines"]}"
     return results
 
 
-if __name__ == "__main__":
-    try:
-        # Try to load existing database first
-        db = load_vector_db()
-    except FileNotFoundError:
-        # Create new database if none exists
-        db = create_vector_db()
+def read_Sallms_tasks(file_path: str):
+    security_eval_tasks = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            data = json.loads(line)
+            security_eval_tasks.append(data.get('prompt', '').strip())
+    return security_eval_tasks
 
-    with open("dataset/sample_tasks.txt", "r") as file:
-        sample_tasks = file.readlines()
 
-    # Example query
-    count = 1
-    for task in sample_tasks:
-        print(f"###Querying for task {count}###")
-        task_prompt = f"Generate secure python code for the following task: {
-            task}"
-        results = query_vector_db(task_prompt, db)
-        for doc in results:
+def read_SecurityEval_tasks(file_path: str):
+    security_eval_tasks = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            data = json.loads(line)
+            security_eval_tasks.append(data.get('Prompt', '').strip())
+    return security_eval_tasks
 
-            print(doc.page_content)
-        count += 1
+
+def prompt_template(task: str, preconditions_guidelines: list[str]):
+    # task_prompt = f"Generate secure Python code for the following:\n {task}"
+    task_prompt = f"{task}\n"
+    # additional_info = "\nHere are some additional security guidelines to follow if the coding task satisfies the specific preconditions:\n"
+    guideline_num = 1
+    info = ""
+    for pair in preconditions_guidelines:
+        # Access the page_content attribute of the Document object
+        content = pair.page_content
+        info += f"#{guideline_num}\n{content}\n"
+        guideline_num += 1
+    return task_prompt + info
