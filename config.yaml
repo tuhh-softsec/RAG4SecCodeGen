@@ -1,16 +1,15 @@
 paths:
-  guidelinescsv_file: "dataset/secure_coding_guidelines.csv"
+  guidelinescsv_file: "dataset/secure_coding_guidelines_M&C.csv"
   persist_dir: "chroma_db"
-  code_output_dir: "output/rag/gpt4"
-  prompt_dataset_file: "dataset/LLMSecEval_Py.txt"
-
+  code_output_dir: "output/rci_rag/gemini/sallms/code"
+  prompt_dataset_file: "dataset/sallms.jsonl"
+  prompt_file_dir: "output/rci_rag/gemini/sallms/prompts"
 models:
   embedding_model: "text-embedding-3-small"
-  completion_model: "gpt-4-1106-preview"
 
 database:
   chunk_size: 1000
   chunk_overlap: 200 
 
 misc:
-  prompt_id_prefix: "rag_"
+  prompt_id_prefix: "rci_rag_" 

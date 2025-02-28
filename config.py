@@ -47,6 +47,10 @@ class Config:
     def prompt_id_prefix(self):
         return self.config['misc']['prompt_id_prefix']
 
+    @property
+    def prompt_file_dir(self):
+        return self.config['paths']['prompt_file_dir']
+
 
 # Create a global config instance
 config = Config()
